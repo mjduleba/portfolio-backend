@@ -1,7 +1,6 @@
 services:
   backend:
-    build:
-      context: ./backend
+    image: mjduleba/portfolio-backend:latest
     restart: unless-stopped
     env_file:
       - .env
@@ -19,13 +18,7 @@ services:
       - postgres_data:/var/lib/postgresql/data
 
   frontend:
-    build:
-      context: ./frontend
-      args:
-        # All API calls happen in server components, rendered inside this
-        # container - never in the browser - so this must be the internal
-        # Docker network address, not the public nginx URL.
-        NEXT_PUBLIC_API_URL: http://backend:8000
+    image: mjduleba/portfolio-frontend:latest
     restart: unless-stopped
     expose:
       - "3000"
